@@ -9,14 +9,10 @@ public class BallTree {
     BallNode root;
 
     public BallTree(Matrix points) {
-        root = buildBallTree(points);
+        root = BallNode.buildBallNode(points);
     }
 
     public List<Double> findNeighbors(int k, List<Double> point) {
-        throw new UnsupportedOperationException("Not implemented");
-    }
-
-    private BallNode buildBallTree(Matrix points) {
         throw new UnsupportedOperationException("Not implemented");
     }
 }

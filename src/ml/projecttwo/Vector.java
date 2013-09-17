@@ -102,7 +102,7 @@ public class Vector {
         return points.getRow(closestIndex);
     }
 
-    private static List<Double> addAndMultiply(List<Double> pointA, double coefA,
+    public static List<Double> addAndMultiply(List<Double> pointA, double coefA,
                                                List<Double> pointB, double coefB, double scalar) {
         int size = pointA.size();
         if (size != pointB.size()) {
