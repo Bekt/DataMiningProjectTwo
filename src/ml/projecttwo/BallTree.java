@@ -1,7 +1,6 @@
 package ml.projecttwo;
 
 import ml.Matrix;
-
 import java.util.List;
 
 public class BallTree {

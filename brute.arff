@@ -1,0 +1,13 @@
+@relation duh
+
+@attribute 1
+@attribute 2
+@attribute 3
+
+@data
+1 1 1
+2 2 2
+3 3 3
+100 100 100
+-100 -100 -100
+

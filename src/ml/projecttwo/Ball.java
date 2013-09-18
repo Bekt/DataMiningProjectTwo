@@ -4,6 +4,7 @@ import helpers.Rand;
 import ml.Matrix;
 import java.util.List;
 import static ml.projecttwo.Vector.*;
+import static java.lang.Math.max;
 
 public abstract class Ball {
 
@@ -24,23 +25,29 @@ public abstract class Ball {
         radius = distance(pointE, pointF) / 2;
         center = addAndMultiply(pointE, pointF, 0.5);
 
-        while (true) {
-            List<Double> pointD = null;
-            if (1 == 1) {
-                throw new UnsupportedOperationException("Not implemented");
+        boolean isWorking = true;
+        while (isWorking) {
+            isWorking = false;
+            for (int i = 0; i < points.getNumRows(); i++) {
+                List<Double> row = points.getRow(i);
+                double dist = distanceTo(row);
+
+                if (dist > 0) {
+                    isWorking = true;
+
+                    List<Double> difference = subtract(row, center);
+                    double coefB = 1 - (radius / magnitude(difference));
+
+                    // c = c + (1 - (r / ||d - c||)) (d - c)
+                    center = addAndMultiply(center, 1, difference, coefB, 1);
+                    radius *= (1 + RADIUS_GROWTH_RATE);
+                }
             }
-
-            List<Double> difference = subtract(pointD, center);
-            double coefB = 1 - (radius / magnitude(difference));
-
-            // c = c + (1 - (r / ||d - c||)) (d - c)
-            center = addAndMultiply(center, 1, difference, coefB, 1);
-            radius *= (1 + RADIUS_GROWTH_RATE);
         }
     }
 
     public double distanceTo(List<Double> point) {
-        throw new UnsupportedOperationException("Not implemented");
+        return max(distance(center, point) - radius, 0);
     }
 
 }
