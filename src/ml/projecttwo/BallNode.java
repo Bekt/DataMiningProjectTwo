@@ -30,8 +30,8 @@ public class BallNode extends Ball {
             int randomIndex = Rand.nextInt(points.getNumRows());
 
             List<Double> pointA = points.getRow(randomIndex);
-            List<Double> pointE = furhtestPoint(points, pointA);
-            List<Double> pointF = furhtestPoint(points, pointE);
+            List<Double> pointE = furthestPoint(points, pointA);
+            List<Double> pointF = furthestPoint(points, pointE);
 
             Matrix pointsG = new Matrix(points, true);
             Matrix pointsH = new Matrix(points, true);

@@ -58,7 +58,7 @@ public class Vector {
      * @param point
      * @return
      */
-    public static List<Double> furhtestPoint(Matrix points, List<Double> point) {
+    public static List<Double> furthestPoint(Matrix points, List<Double> point) {
         double furthestDistance = Double.NEGATIVE_INFINITY;
         int furthestIndex = -1;
         int size = points.getNumRows();
@@ -81,7 +81,7 @@ public class Vector {
      * @param point
      * @return
      */
-    public static List<Double> closesttPoint(Matrix points, List<Double> point) {
+    public static List<Double> closestPoint(Matrix points, List<Double> point) {
         double closestDistance = Double.POSITIVE_INFINITY;
         int closestIndex = -1;
         int size = points.getNumRows();
