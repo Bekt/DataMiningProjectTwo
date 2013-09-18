@@ -1,5 +1,6 @@
 package ml.projecttwo;
 
+import ml.MLException;
 import ml.Matrix;
 
 import java.util.ArrayList;
@@ -55,7 +56,7 @@ public class BallTree {
             }
             if (ball.isLeaf()){
                 //add each point in S to N
-                for(List<Double> pt : ball.points){
+                for(List<Double> pt : ball.points.data){
                     points.add(pt);
                 }
                 while(points.size() > k){
@@ -69,7 +70,6 @@ public class BallTree {
                 balls.add(ball.right);
             }
         }
-
-
+        throw new MLException("Error in KNN logic, this point was not supposed to be reached");
     }
 }
