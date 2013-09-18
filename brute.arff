@@ -1,13 +1,13 @@
 @relation duh
 
-@attribute 1
-@attribute 2
-@attribute 3
+@attribute 1 real
+@attribute 2 real
+@attribute 3 real
 
 @data
-1 1 1
-2 2 2
-3 3 3
-100 100 100
--100 -100 -100
+1,1,1
+2,2,2
+3,3,3
+100,100,100
+-100,-100,-100
 
