@@ -13,13 +13,28 @@ import static ml.projecttwo.Vector.*;
 
 public class Main {
 
+    public static final int k = 2;
+
     public static void main(String[] args) throws IOException {
-        Matrix points = ARFFParser.loadARFF("/Users/dev/workspace/DataMiningProjectTwo/brute.arff");
-        List<Double> input = Arrays.asList(70.0, 70.0, 70.0);
-        Set<Integer> out = slowKnn(points, 2, input);
-        for (int i : out) {
-            System.out.println(points.getRow(i));
-        }
+//        Matrix points = ARFFParser.loadARFF("/Users/dev/workspace/DataMiningProjectTwo/brute.arff");
+//        List<Double> input = Arrays.asList(70.0, 70.0, 70.0);
+//        Set<Integer> out = slowKnn(points, 2, input);
+//        for (int i : out) {
+//            System.out.println(points.getRow(i));
+//        }
+
+        final int featuresStart = 0, featuresEnd = 784;
+        final int labelsStart = 784, labelsEnd = 785;
+        final int nFoldSize = 2;
+
+        Matrix data = ARFFParser.loadARFF("brute.arff");
+        Matrix features = data.subMatrixCols(featuresStart, featuresEnd);
+        Matrix labels = data.subMatrixCols(labelsStart, labelsEnd);
+
+        InstanceBasedLearner learner = new InstanceBasedLearner(k);
+
+        double mse = learner.nFoldCrossValidation(features, labels, nFoldSize);
+        System.out.println(mse);
     }
 
     /**

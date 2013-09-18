@@ -50,7 +50,7 @@ public class BallTree {
             BallNode ball = balls.poll(); //get S
             if (points.size() >= k){ //if there are at least k points in the points PriorityQueue
                 List<Double> tempPoint = points.poll(); //get the first point, S, in points
-                //if S is further from d than the first point in N is from d (linear interpolation)
+                //if S is further from d than the first point in N is from d
                 if ((ball.distanceTo(point)) > (Vector.distance(tempPoint, point))){
                     return points; //return N
                 }
