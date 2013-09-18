@@ -9,7 +9,7 @@ import static ml.projecttwo.Vector.*;
 
 public class BallNode extends Ball {
 
-    public final static int BALL_SIZE = 10;
+    public final static int BALL_SIZE = 2;
 
     BallNode left, right;
     Matrix points;
@@ -47,8 +47,8 @@ public class BallNode extends Ball {
                     pointsH.addRow(row);
                 }
             }
-            ballNode.left = buildBallNode(null);
-            ballNode.right = buildBallNode(null);
+            ballNode.left = buildBallNode(pointsG);
+            ballNode.right = buildBallNode(pointsH);
 
         } else { // Leaf
             ballNode.points = points;

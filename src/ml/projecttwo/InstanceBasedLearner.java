@@ -37,6 +37,7 @@ public class InstanceBasedLearner extends SupervisedLearner {
         Map<List<Double>, Double> labelWeights = new HashMap<List<Double>, Double>(); //maps labels to their weights
 
         for(List<Double> neighbor : queue){
+            //System.out.println("knn:  " + neighbor);
             int index = indexOf(neighbor);
             List<Double> label = labels.getRow(index);
             Double weight = 1.0/Vector.distance(neighbor, in); //linear interpolation, weight = 1/d
