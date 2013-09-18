@@ -9,7 +9,7 @@ import static ml.projecttwo.Vector.*;
 
 public class BallNode extends Ball {
 
-    public final static int BALL_SIZE = 2;
+    public final static int BALL_SIZE = 10;
 
     BallNode left, right;
     Matrix points;
@@ -38,8 +38,8 @@ public class BallNode extends Ball {
 
             for (int i = 0; i < points.getNumRows(); i++) {
                 List<Double> row = points.getRow(i);
-                double distanceToE = distance(row, pointE);
-                double distanceToF = distance(row, pointF);
+                double distanceToE = squaredDistance(row, pointE);
+                double distanceToF = squaredDistance(row, pointF);
 
                 if (distanceToE < distanceToF) {
                     pointsG.addRow(row);

@@ -15,13 +15,17 @@ public class Vector {
      * Formula: ||X|| = sqrt( x1^2 + x2^2 + x3^2 + ... + xn^2 )
      */
     public static double magnitude(List<Double> point) {
+        return sqrt(squaredMagnitude(point));
+    }
+
+    public static double squaredMagnitude(List<Double> point) {
         double sum = 0;
         int size = point.size();
         for (int i = 0; i < size; i++) {
             double val = point.get(i);
             sum += val * val;
         }
-        return sqrt(sum);
+        return sum;
     }
 
     /**
@@ -32,6 +36,11 @@ public class Vector {
     public static double distance(List<Double> pointA, List<Double> pointB) {
         List<Double> difference = subtract(pointA, pointB);
         return magnitude(difference);
+    }
+
+    public static double squaredDistance(List<Double> pointA, List<Double> pointB) {
+        List<Double> difference = subtract(pointA, pointB);
+        return squaredMagnitude(difference);
     }
 
     public static List<Double> add(List<Double> pointA, List<Double> pointB) {
@@ -64,7 +73,7 @@ public class Vector {
         int size = points.getNumRows();
         for (int i = 0; i < size; i++) {
             List<Double> row = points.getRow(i);
-            double dist = distance(point, row);
+            double dist = squaredDistance(point, row);
             if (dist > furthestDistance) {
                 furthestDistance = dist;
                 furthestIndex = i;
@@ -93,7 +102,7 @@ public class Vector {
                 continue;
             }
 
-            double dist = distance(point, row);
+            double dist = squaredDistance(point, row);
             if (dist < closestDistance) {
                 closestDistance = dist;
                 closestIndex = i;

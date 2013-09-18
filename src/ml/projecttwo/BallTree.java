@@ -21,8 +21,8 @@ public class BallTree {
             @Override
             public int compare(List<Double> o1, List<Double> o2) {
                 //find Euclidean distances from point
-                double o1dist = Vector.distance(point, o1);
-                double o2dist = Vector.distance(point, o2);
+                double o1dist = Vector.squaredDistance(point, o1);
+                double o2dist = Vector.squaredDistance(point, o2);
 
                 //rank in reverse (max to min) order
                 if (o1dist < o2dist) return 1;
@@ -45,36 +45,26 @@ public class BallTree {
 
         balls.add(root);
         while (!balls.isEmpty()){
-            //long startTime = System.currentTimeMillis();
-            BallNode ball = balls.poll(); //get S
-            if (points.size() >= k){ //if there are at least k points in the points PriorityQueue
-                List<Double> tempPoint = points.peek(); //get the first point, S, in points
-                //if S is further from d than the first point in N is from d
+            BallNode ball = balls.poll();
+            if (points.size() >= k){
+                List<Double> tempPoint = points.peek();
                 if ((ball.distanceTo(point)) > (Vector.distance(tempPoint, point))){
-
-                    return points; //return N
+                    return points;
                 }
             }
             if (ball.isLeaf()){
-                //add each point in S to N
-                for(List<Double> pt : ball.points.data){
-                    points.add(pt);
+                for (List<Double> p : ball.points.data) {
+                    points.add(p);
                 }
                 while(points.size() > k){
-                    //discard the first point in N
                     points.poll();
                 }
-            }
-            else{
-                //add each child ball in S to Q
+            } else{
                 balls.add(ball.left);
                 balls.add(ball.right);
             }
-            //System.out.println("findNeighbors: " + (System.currentTimeMillis() - startTime));
         }
-        //throw new MLException("Error in KNN logic, this point was not supposed to be reached");
         return points;
     }
-
 
 }
