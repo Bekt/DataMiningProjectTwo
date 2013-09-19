@@ -2,14 +2,10 @@ package ml.projecttwo;
 
 import helpers.Rand;
 import ml.Matrix;
-
 import java.util.List;
-
 import static ml.projecttwo.Vector.*;
 
 public class BallNode extends Ball {
-
-    public final static int BALL_SIZE = 10;
 
     BallNode left, right;
     Matrix points;
@@ -19,13 +15,12 @@ public class BallNode extends Ball {
         return left == null && right == null;
     }
 
-    // TODO: re-use points A, E, F
-    public static BallNode buildBallNode(Matrix points) {
+    public static BallNode buildBallNode(Matrix points, int k) {
 
         BallNode ballNode = new BallNode();
         ballNode.findBoundingBall(points);
 
-        if (points.getNumRows() > 2 * BALL_SIZE) {
+        if (points.getNumRows() > 2 * k) {
 
             int randomIndex = Rand.nextInt(points.getNumRows());
 
@@ -47,8 +42,8 @@ public class BallNode extends Ball {
                     pointsH.addRow(row);
                 }
             }
-            ballNode.left = buildBallNode(pointsG);
-            ballNode.right = buildBallNode(pointsH);
+            ballNode.left = buildBallNode(pointsG, k);
+            ballNode.right = buildBallNode(pointsH, k);
 
         } else { // Leaf
             ballNode.points = points;

@@ -10,8 +10,8 @@ public abstract class Ball {
 
     public final static double RADIUS_GROWTH_RATE = 0.02;
 
-    List<Double> center;
-    double radius;
+    private List<Double> center;
+    private double radius;
 
     public abstract boolean isLeaf();
 
@@ -22,7 +22,7 @@ public abstract class Ball {
         List<Double> pointE = furthestPoint(points, pointA);
         List<Double> pointF = furthestPoint(points, pointE);
 
-        radius = distance(pointE, pointF) / 2;
+        radius = distance(pointE, pointF) / 2.0;
         center = addAndMultiply(pointE, pointF, 0.5);
 
         boolean isWorking = true;

@@ -2,17 +2,15 @@ package ml.projecttwo;
 
 import ml.Matrix;
 import ml.SupervisedLearner;
+import static ml.projecttwo.Vector.*;
 
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
-import java.util.PriorityQueue;
+import java.util.*;
 
 public class InstanceBasedLearner extends SupervisedLearner {
-    BallTree ballTree;
-    int k;
-    Matrix features;
-    Matrix labels;
+
+    private BallTree ballTree;
+    private int k;
+    private Matrix features, labels;
 
     public InstanceBasedLearner(int k){
         this.k = k;
@@ -22,7 +20,7 @@ public class InstanceBasedLearner extends SupervisedLearner {
     public void train(Matrix features, Matrix labels) {
         this.features = features;
         this.labels = labels;
-        ballTree = new BallTree(features);
+        ballTree = new BallTree(features, k);
     }
 
     /**
@@ -33,34 +31,27 @@ public class InstanceBasedLearner extends SupervisedLearner {
      */
     @Override
     public List<Double> predict(List<Double> in) {
-        PriorityQueue<List<Double>> queue= ballTree.findNeighbors(k, in);
-        Map<List<Double>, Double> labelWeights = new HashMap<List<Double>, Double>(); //maps labels to their weights
+        Queue<List<Double>> queue = ballTree.findNeighbors(k, in);
+        Map<List<Double>, Double> labelWeights = new HashMap<List<Double>, Double>();
 
-        for(List<Double> neighbor : queue){
+        for (List<Double> neighbor : queue) {
             int index = indexOf(neighbor);
             List<Double> label = labels.getRow(index);
-            Double weight = 1.0/Vector.squaredDistance(neighbor, in); //linear interpolation, weight = 1/d
+            Double weight = 1.0 / squaredDistance(neighbor, in);
 
-            //Update the weight for this label
-            if(labelWeights.containsKey(label)){
-                Double totalWeight = labelWeights.get(label);
-                totalWeight += weight;
-                labelWeights.put(label, totalWeight);
-            }
-            else{
-                labelWeights.put(label, weight);
-            }
+            Double totalWeight = labelWeights.get(label);
+            totalWeight = totalWeight == null ? weight : (totalWeight + weight);
+            labelWeights.put(label, totalWeight);
         }
 
         List<Double> returnLabel = null;
         Double maxWeight = Double.MIN_VALUE;
-        for(Map.Entry<List<Double>, Double> entry : labelWeights.entrySet()){
-            if(maxWeight < entry.getValue()){
+        for (Map.Entry<List<Double>, Double> entry : labelWeights.entrySet()) {
+            if (maxWeight < entry.getValue()) {
                 maxWeight = entry.getValue();
                 returnLabel = entry.getKey();
             }
         }
-
         return returnLabel;
     }
 
