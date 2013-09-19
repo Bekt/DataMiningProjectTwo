@@ -18,6 +18,13 @@ public class Main {
         final int nFoldSize = 2;
 
         Matrix points = ARFFParser.loadARFF("/Users/dev/workspace/DataMiningProjectTwo/mnist_part.arff");
+
+        System.out.println(points.getNumRows());
+
+        points.shuffle();
+
+        System.out.println(points.getNumRows());
+
         Matrix features = points.subMatrixCols(featuresStart, featuresEnd);
         Matrix labels = points.subMatrixCols(labelsStart, labelsEnd);
 
