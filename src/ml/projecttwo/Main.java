@@ -15,6 +15,7 @@ public class Main {
     public static void main(String[] args) throws IOException {
 
         Matrix points = ARFFParser.loadARFF(args[0]);
+        //Matrix points = ARFFParser.loadARFF("/Users/dev/workspace/DataMiningProjectTwo/mnist_part.arff");
         points.shuffle();
 
         final int featuresStart = 0, featuresEnd = 784;
