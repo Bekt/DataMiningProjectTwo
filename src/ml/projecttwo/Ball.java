@@ -3,7 +3,7 @@ package ml.projecttwo;
 import helpers.Rand;
 import ml.Matrix;
 import java.util.List;
-import static ml.projecttwo.Vector.*;
+import static helpers.Vector.*;
 import static java.lang.Math.max;
 
 public abstract class Ball {

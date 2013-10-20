@@ -2,7 +2,7 @@ package ml.projecttwo;
 
 import ml.Matrix;
 import java.util.*;
-import static ml.projecttwo.Vector.*;
+import static helpers.Vector.*;
 
 public class BallTree {
 
@@ -26,7 +26,7 @@ public class BallTree {
                 }
             }
             if (ballS.isLeaf()) {
-                for (List<Double> p : ballS.points.data) {
+                for (List<Double> p : ballS.points.getData()) {
                     pointsN.add(p);
                 }
                 while (pointsN.size() > k) {

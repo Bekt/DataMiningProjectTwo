@@ -2,7 +2,7 @@ package ml.projecttwo;
 
 import ml.Matrix;
 import ml.SupervisedLearner;
-import static ml.projecttwo.Vector.*;
+import static helpers.Vector.*;
 
 import java.util.*;
 
@@ -24,8 +24,6 @@ public class InstanceBasedLearner extends SupervisedLearner {
     }
 
     /**
-     * Only works with categorical labels. For continuous labels, you need to calculate a mean
-     * of the (label*weight) for all of the k nearest neighbors.
      * @param in
      * @return
      */
@@ -44,6 +42,14 @@ public class InstanceBasedLearner extends SupervisedLearner {
             labelWeights.put(label, totalWeight);
         }
 
+        if (labels.isCategorical(0)) {
+            return handleCategorical(labelWeights);
+        } else {
+            return handleContinuous(labelWeights);
+        }
+    }
+
+    private List<Double> handleCategorical(Map<List<Double>, Double> labelWeights) {
         List<Double> returnLabel = null;
         Double maxWeight = Double.MIN_VALUE;
         for (Map.Entry<List<Double>, Double> entry : labelWeights.entrySet()) {
@@ -52,6 +58,18 @@ public class InstanceBasedLearner extends SupervisedLearner {
                 returnLabel = entry.getKey();
             }
         }
+        return returnLabel;
+    }
+
+    private List<Double> handleContinuous(Map<List<Double>, Double> labelWeights) {
+        double sum = 0;
+        int n = 0;
+        for (Map.Entry<List<Double>, Double> entry : labelWeights.entrySet()) {
+            sum += (entry.getValue() * entry.getKey().get(0));
+            n++;
+        }
+        List<Double> returnLabel = new ArrayList<Double>();
+        returnLabel.add(sum / n);
         return returnLabel;
     }
 

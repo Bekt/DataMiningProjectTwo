@@ -6,7 +6,7 @@ import ml.Matrix;
 import java.io.IOException;
 import java.util.*;
 
-import static ml.projecttwo.Vector.*;
+import static helpers.Vector.*;
 
 public class Main {
 
@@ -16,7 +16,6 @@ public class Main {
 
         Matrix points = ARFFParser.loadARFF(args[0]);
         //Matrix points = ARFFParser.loadARFF("/Users/dev/workspace/DataMiningProjectTwo/mnist_part.arff");
-        points.shuffle();
 
         final int featuresStart = 0, featuresEnd = 784;
         final int labelsStart = 784, labelsEnd = 785;

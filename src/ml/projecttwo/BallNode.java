@@ -3,7 +3,7 @@ package ml.projecttwo;
 import helpers.Rand;
 import ml.Matrix;
 import java.util.List;
-import static ml.projecttwo.Vector.*;
+import static helpers.Vector.*;
 
 public class BallNode extends Ball {
 
@@ -42,8 +42,14 @@ public class BallNode extends Ball {
                     pointsH.addRow(row);
                 }
             }
-            ballNode.left = buildBallNode(pointsG, k);
-            ballNode.right = buildBallNode(pointsH, k);
+
+            if (pointsG.getNumRows() == 0 || pointsH.getNumRows() == 0) {
+                // This means all points are the same
+                ballNode.points = pointsG.getNumRows() > 0 ? pointsG : pointsH;
+            } else {
+                ballNode.left = buildBallNode(pointsG, k);
+                ballNode.right = buildBallNode(pointsH, k);
+            }
 
         } else { // Leaf
             ballNode.points = points;
